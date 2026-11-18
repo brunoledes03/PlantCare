@@ -1,0 +1,101 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--
+        Permite utilizar el microfono del dispositivo
+        para convertir las observaciones habladas en texto.
+    -->
+    <uses-permission
+        android:name="android.permission.RECORD_AUDIO" />
+
+    <!--
+        Permite conectarse a Internet cuando el servicio
+        de reconocimiento de voz lo necesita.
+    -->
+    <uses-permission
+        android:name="android.permission.INTERNET" />
+
+    <!--
+        Indica que la camara es opcional para instalar PlantCare.
+        La captura de fotografias se realizara con image_picker.
+    -->
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+
+    <!--
+        El microfono es opcional para instalar la aplicacion.
+        Si no esta disponible, se pueden escribir las notas manualmente.
+    -->
+    <uses-feature
+        android:name="android.hardware.microphone"
+        android:required="false" />
+
+    <!--
+        Permite que Android encuentre los servicios
+        de reconocimiento de voz instalados.
+    -->
+    <queries>
+
+        <intent>
+            <action android:name="android.speech.RecognitionService" />
+        </intent>
+
+        <!-- Configuracion utilizada por Flutter para procesar texto. -->
+        <intent>
+            <action android:name="android.intent.action.PROCESS_TEXT" />
+            <data android:mimeType="text/plain" />
+        </intent>
+
+    </queries>
+
+    <!-- Configuracion general de la aplicacion PlantCare. -->
+    <application
+        android:label="PlantCare"
+        android:name="${applicationName}"
+        android:icon="@mipmap/ic_launcher"
+        android:hardwareAccelerated="true">
+
+        <!--
+            Actividad principal de Flutter.
+            Se mantiene MainActivity porque es la clase
+            generada automaticamente en el proyecto Android.
+        -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:theme="@style/LaunchTheme"
+            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+            android:hardwareAccelerated="true"
+            android:windowSoftInputMode="adjustResize">
+
+            <!--
+                Aplica el tema normal de Flutter despues
+                de finalizar la pantalla de inicio.
+            -->
+            <meta-data
+                android:name="io.flutter.embedding.android.NormalTheme"
+                android:resource="@style/NormalTheme" />
+
+            <!--
+                Indica a Android que esta es la actividad
+                que debe abrirse al iniciar PlantCare.
+            -->
+            <intent-filter>
+
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+
+            </intent-filter>
+
+        </activity>
+
+        <!-- Identifica el sistema de integracion Flutter Embedding V2. -->
+        <meta-data
+            android:name="flutterEmbedding"
+            android:value="2" />
+
+    </application>
+
+</manifest>
